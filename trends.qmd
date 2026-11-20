@@ -1,0 +1,33 @@
+---
+title: "Trends"
+---
+
+```{r}
+#| message: false
+library(tidyverse)
+```
+
+```{r}
+attacks <- read_rds("data/attacks.rds")
+```
+
+```{r}
+attacks |>
+  # Drop 2018 since the dataset only covers part of that year
+  filter(Year < 2018) |>
+  count(Year) |>
+  ggplot(aes(x = Year, y = n)) +
+  geom_line()
+```
+
+```{r}
+attacks |>
+  # Keep activities with at least 50 total incidents, then drop Unknown outcomes
+  filter(n() >= 50, .by = Activity) |>
+  filter(Fatal_clean != "Unknown") |>
+  count(Activity, Fatal_clean) |>
+  # Reorder activities by total count so the horizontal bars are sorted
+  mutate(Activity = fct_reorder(Activity, n, .fun = sum)) |>
+  ggplot(aes(x = n, y = Activity, fill = Fatal_clean)) +
+  geom_col()
+```
