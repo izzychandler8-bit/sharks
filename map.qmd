@@ -1,0 +1,41 @@
+---
+title: "Map"
+---
+
+```{r}
+#| message: false
+library(tidyverse)
+library(maps)
+```
+
+```{r}
+#| cache: true
+attacks <- read_csv("data/attacks_clean.csv", show_col_types = FALSE) |>
+  mutate(
+    # Trim extra spaces and convert country names to lowercase
+    Country_lower = str_to_lower(str_trim(Country)),
+    # Relabel Y/N and group NA or messy entries as "Unknown"
+    Fatal_clean = case_when(
+      Fatal == "Y" ~ "Fatal",
+      Fatal == "N" ~ "Non-fatal",
+      .default = "Unknown"
+    )
+  )
+
+# Save cleaned data so other pages can load it directly
+write_rds(attacks, "data/attacks.rds")
+```
+
+```{r}
+attack_counts <- attacks |>
+  count(Country_lower)
+
+map_data("world") |>
+  # Lowercase map region names so they match Country_lower
+  mutate(Country_lower = str_to_lower(region)) |>
+  left_join(attack_counts, by = "Country_lower") |>
+  # group = group keeps each country/island polygon connected properly
+  ggplot(aes(x = long, y = lat, group = group, fill = n)) +
+  geom_polygon(color = "white", linewidth = 0.1) +
+  coord_fixed(1.3)
+```
