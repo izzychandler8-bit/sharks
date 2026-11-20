@@ -2,6 +2,8 @@
 title: "Shark Attacks"
 ---
 
-This is a Quarto website.
+The **Global Shark Attack File (GSAF)**, maintained by the Shark Research Institute, is a worldwide record of reported shark-human interactions compiled for researchers, physicians, and the public. Our cleaned subset tracks more than 5,000 documented incidents since 1901, recording where and when each encounter happened, what activity the person was doing, and whether the injury was fatal.
 
-To learn more about Quarto websites visit <https://quarto.org/docs/websites>.
+Public fear of sharks is far out of proportion to the actual danger. Vivid news coverage and pop culture make shark attacks feel common and deadly, yet across more than a century and billions of ocean visits worldwide, reported encounters average well under two hundred per year—and roughly four out of five incidents with known outcomes are non-fatal. Everyday coastal hazards such as rip currents and drowning pose vastly greater risk to beachgoers than sharks do.
+
+Use the navigation bar above to explore the data: the **[Map](map.qmd)** page colors each country by its total number of recorded incidents to highlight global hotspots like the United States, Australia, and South Africa, while the **[Trends](trends.qmd)** page traces annual incident counts from 1901 to 2017 and compares fatal versus non-fatal outcomes across common ocean activities such as surfing, swimming, and fishing.
